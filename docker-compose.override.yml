@@ -1,0 +1,10 @@
+version: '2'
+services:
+  app:
+    build:
+      args:
+        PUID: "1000"
+        PHP_INSTALL_XDEBUG: "true"
+        PHP_XDEBUG_PORT: "9001"
+    volumes:
+      - .docker/php/xdebug_custom.ini:/usr/local/etc/php/conf.d/51-xdebug-custom.ini
