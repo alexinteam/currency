@@ -1,21 +1,61 @@
-# Lumen PHP Framework
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+## Install application
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+### Copy config
+ ``cp .env.example .env``
+ 
+### Start application
+ ``docker-compose up -d``
 
-## Official Documentation
+### Stop application
+ ``docker-compose down -v``
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+### Install dependencies
+``docker-compose exec app composer install``
 
-## Security Vulnerabilities
+### Run migrations
+``docker-compose exec app php artisan migrate``
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+### Run migrations with seeds
+``docker-compose exec app php artisan migrate --seed``
 
-## License
+### Laravel IDE Helpers
+``docker-compose exec app php artisan ide-helper:generate``
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+``docker-compose exec app php artisan ide-helper:meta``
+
+### Open app
+``http://localhost``
+
+
+Создайте файл `docker-compose.override.yml` о содержимым
+```
+version: '2'
+services:
+
+  app:
+    build:
+      args:
+        PUID: "1000"
+        PHP_INSTALL_XDEBUG: "true"
+        PHP_XDEBUG_PORT: "9000"
+    environment:
+      PHP_IDE_CONFIG: "serverName=localhost"
+    extra_hosts:
+      - "dockerhost:10.0.75.1"
+```
+, где
+- `PUID` - Только для nix* систем, id вашего пользователя, обычно в linux=1000, mac=500. Узнать его можно командой `id -u`. Для windows параметр не имеет смысла
+- `PHP_INSTALL_XDEBUG` нужно ли включить xdebug для php (по умолчанию "false") 
+- `PHP_XDEBUG_PORT` порт для xdebug (по умолчанию "9000")
+- `PHP_IDE_CONFIG` специальная переменая для PHPStorm, со значением `"serverName=localhost"`, где  `localhost` это название сервера, которое вы дали в настройках PHPStorm
+
+для Windows пользователей добавить в ``docker-compose.override.yml``
+
+```$xslt
+  app:
+    build:
+        volumes:
+              - .docker/php/xdebug_custom.ini:/usr/local/etc/php/conf.d/51-xdebug-custom.ini
+```
+

@@ -18,6 +18,10 @@ class CreateCurrencyTable extends Migration
             $table->string('currency');
             $table->timestamps();
         });
+
+        Schema::table('currency', function (Blueprint $table) {
+            $table->unique('currency');
+        });
     }
 
     /**
