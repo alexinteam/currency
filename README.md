@@ -59,3 +59,24 @@ services:
               - .docker/php/xdebug_custom.ini:/usr/local/etc/php/conf.d/51-xdebug-custom.ini
 ```
 
+
+
+### TEST APP
+ ``fill APILAYER_KEY in  .env``
+
+
+```$xslt
+POST    localhost:8080/transfer/
+
+BODY(JSON)   
+    {
+    	"sender_id" : 3,
+    	"reciever_id" : 1,
+    	"amount" : 0
+    }
+
+```
+```
+!!!NOTE!!!
+CHECK DB FIRST! SEEDS MAKING RANDOM IDS AND VALUES 
+```

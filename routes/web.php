@@ -1,5 +1,7 @@
 <?php
 
+use \App\Http\Requests\TransferRequest;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -14,7 +16,15 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+//$router->post('/transfer', [
+//    'as' => 'transfer',
+//    'uses' => 'AccountController@transfer',
+//]);
+
 $router->post('/transfer', [
     'as' => 'transfer',
     'uses' => 'AccountController@transfer',
+    function (TransferRequest $request) {
+        $this->validate($request->json()->all(), $request->rules());
+    }
 ]);

@@ -55,8 +55,8 @@ class AccountService
 
         try {
             $receivingAmount = $this->currencyService->convert(
-                $sender->currency()->currency,
-                $reciever->currency()->currency,
+                $sender->currency->currency,
+                $reciever->currency->currency,
                 $amount
             );
 

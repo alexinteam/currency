@@ -8,8 +8,7 @@ use App\Exceptions\AccountTransferException;
 use App\Exceptions\AllCurrencyApilayerException;
 use App\Http\Requests\TransferRequest;
 use App\Services\AccountService;
-use App\Services\CurrencyLayerInterface;
-use Illuminate\Http\Request;
+use  \Illuminate\Http\JsonResponse;
 
 class AccountController extends Controller
 {
@@ -25,13 +24,14 @@ class AccountController extends Controller
 
     /**
      * @param TransferRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function transfer(TransferRequest $request)
     {
-        $senderId = $request->get('sender_id', null);
-        $recieverId = $request->get('reciever_id', null);
-        $amount  = $request->get('reciever_id', null);
+        $data = $request->json()->all();
+        $senderId = $data['sender_id'] ?? null;
+        $recieverId = $data['reciever_id'] ?? null;
+        $amount  = $data['amount'] ?? null;
 
         $sender = $this->accountService->find($senderId);
         $reciever = $this->accountService->find($recieverId);

@@ -6,6 +6,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Currency
+ * @package App\Models
+ * @property integer $id
+ * @property string $currency
+ */
 class Currency extends Model
 {
     public const USD = 'USD';

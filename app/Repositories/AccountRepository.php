@@ -16,7 +16,7 @@ class AccountRepository
      */
     public function find(?int $id) : ?Account
     {
-        return Account::find($id)->first();
+        return Account::where('id', '=', $id)->with('currency')->first();
     }
 
     /**
@@ -28,13 +28,13 @@ class AccountRepository
     public function transferTransaction(Account $sender, Account $reciever) : bool
     {
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $sender->save();
             $reciever->save();
 
             return true;
         } catch (\Exception $exception) {
-            \DB::rollback();
+            DB::rollback();
             throw new AccountTransferException('Transactions not saved');
         }
     }

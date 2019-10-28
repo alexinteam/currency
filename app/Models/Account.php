@@ -4,10 +4,20 @@
 namespace App\Models;
 
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Account
+/**
+ * Class Account
+ * @package App\Models
+ * @property integer $id
+ * @property integer $user_id
+ * @property boolean $is_receiving
+ * @property float $amount
+ * @property integer $master_currency
+ */
+class Account extends Model
 {
     /**
      * @var string $table
@@ -27,6 +37,6 @@ class Account
      */
     public function currency() : HasOne
     {
-        return $this->HasOne(Currency::class, 'currency_id', 'id');
+        return $this->HasOne(Currency::class, 'id', 'master_currency');
     }
 }
