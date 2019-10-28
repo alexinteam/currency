@@ -26,6 +26,12 @@ $app = new Laravel\Lumen\Application(
 // $app->withEloquent();
 
 /*
+ * Load Configs
+ */
+$app->configure('services');
+
+
+/*
 |--------------------------------------------------------------------------
 | Register Container Bindings
 |--------------------------------------------------------------------------
@@ -75,6 +81,8 @@ $app->singleton(
 | totally optional, so you are not required to uncomment this line.
 |
 */
+
+$app->register(App\Providers\LaravelCurrencylayerServiceProvider::class);
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);

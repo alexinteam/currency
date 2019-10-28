@@ -18,6 +18,7 @@ class CreateAccountTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->boolean('is_receiving');
             $table->bigInteger('master_currency')->unsigned();
+            $table->float('amount');
             $table->timestamps();
         });
 

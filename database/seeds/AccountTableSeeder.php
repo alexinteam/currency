@@ -24,6 +24,7 @@ class AccountTableSeeder extends Seeder
                     'user_id' => $randomUsr->id,
                     'master_currency' => $randomCur->id,
                     'is_receiving' => rand(0,1),
+                    'amount' => rand(10000, 100000) / 10,
                 ];
 
                 $accounts[] = $account;

@@ -1,7 +1,5 @@
 <?php
 
 return [
-    'services' => [
-        'apilayerKey' => env('APILAYER_KEY', null),
-    ]
+    'apilayerKey' => env('APILAYER_KEY', null),
 ];

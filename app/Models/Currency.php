@@ -14,6 +14,14 @@ class Currency extends Model
     public const RON = 'RON';
     public const COP = 'COP';
 
+    public const AVAILABLE_CURRENCIES =[
+        self::USD,
+        self::EUR,
+        self::GBP,
+        self::RON,
+        self::COP,
+    ];
+
     /**
      * @var string $table
      */
